@@ -1,0 +1,19 @@
+# Dependencies (rebuilt inside the image)
+**/node_modules/
+
+# Frontend source (not needed by the backend image)
+Frontend/
+
+# Environment files (injected at runtime, never baked into the image)
+**/.env
+**/.env.*
+
+# Build artefacts
+**/build/
+**/.cache/
+
+# Dev / editor files
+.DS_Store
+.idea/
+.vscode/
+*.log

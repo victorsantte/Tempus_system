@@ -1,0 +1,38 @@
+-- AlterTable usuario: add permissoes and createdAt
+ALTER TABLE "usuario" ADD COLUMN IF NOT EXISTS "permissoes" JSONB;
+ALTER TABLE "usuario" ADD COLUMN IF NOT EXISTS "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- AlterTable cliente: add new fields
+ALTER TABLE "cliente" ADD COLUMN IF NOT EXISTS "nome_fantasia" VARCHAR(150);
+ALTER TABLE "cliente" ADD COLUMN IF NOT EXISTS "inscricao_estadual" VARCHAR(50);
+ALTER TABLE "cliente" ADD COLUMN IF NOT EXISTS "telefone" VARCHAR(20);
+ALTER TABLE "cliente" ADD COLUMN IF NOT EXISTS "email" VARCHAR(150);
+ALTER TABLE "cliente" ADD COLUMN IF NOT EXISTS "regime_tributario" VARCHAR(30);
+ALTER TABLE "cliente" ADD COLUMN IF NOT EXISTS "status" VARCHAR(20) NOT NULL DEFAULT 'ativo';
+ALTER TABLE "cliente" ADD COLUMN IF NOT EXISTS "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- Change cnpj column in cliente to allow formatted (18 chars)
+ALTER TABLE "cliente" ALTER COLUMN "cnpj" TYPE VARCHAR(18);
+
+-- AlterTable filial: add new fields
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "cnpj" VARCHAR(18);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "apelido" VARCHAR(100);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "inscricao_estadual" VARCHAR(50);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "inscricao_municipal" VARCHAR(50);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "cep" VARCHAR(10);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "logradouro" VARCHAR(150);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "numero" VARCHAR(20);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "bairro" VARCHAR(100);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "cidade" VARCHAR(100);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "uf" VARCHAR(2);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "nome_fantasia" VARCHAR(150);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "telefone" VARCHAR(20);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "email" VARCHAR(150);
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "status" VARCHAR(20) NOT NULL DEFAULT 'ativo';
+ALTER TABLE "filial" ADD COLUMN IF NOT EXISTS "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- CreateIndex for filial cnpj (only if no duplicates exist)
+CREATE UNIQUE INDEX IF NOT EXISTS "filial_cnpj_key" ON "filial"("cnpj") WHERE "cnpj" IS NOT NULL;
+
+-- AlterTable obrigacao: add createdAt
+ALTER TABLE "obrigacao" ADD COLUMN IF NOT EXISTS "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

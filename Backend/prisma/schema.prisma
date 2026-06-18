@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id          Int      @id @default(autoincrement())
+  nome        String   @db.VarChar(100)
+  email       String   @unique @db.VarChar(150)
+  senha       String   @db.VarChar(255)
+  perfil      String   @default("contador") @db.VarChar(20)
+  permissoes  Json?
+  createdAt   DateTime @default(now())
+
+  @@map("usuario")
+}
+
+model Cliente {
+  id                  Int         @id @default(autoincrement())
+  nome                String      @db.VarChar(150)
+  cnpj                String      @unique @db.VarChar(18)
+  nome_fantasia       String?     @db.VarChar(150)
+  inscricao_estadual  String?     @db.VarChar(50)
+  telefone            String?     @db.VarChar(20)
+  email               String?     @db.VarChar(150)
+  regime_tributario   String?     @db.VarChar(30)
+  status              String      @default("ativo") @db.VarChar(20)
+  createdAt           DateTime    @default(now())
+
+  filiais    Filial[]
+  obrigacoes Obrigacao[]
+
+  @@map("cliente")
+}
+
+model Filial {
+  id                  Int         @id @default(autoincrement())
+  id_cliente          Int
+  cnpj                String?     @unique @db.VarChar(18)
+  nome                String      @db.VarChar(150)
+  apelido             String?     @db.VarChar(100)
+  inscricao_estadual  String?     @db.VarChar(50)
+  inscricao_municipal String?     @db.VarChar(50)
+  cep                 String?     @db.VarChar(10)
+  logradouro          String?     @db.VarChar(150)
+  numero              String?     @db.VarChar(20)
+  bairro              String?     @db.VarChar(100)
+  cidade              String?     @db.VarChar(100)
+  uf                  String?     @db.VarChar(2)
+  nome_fantasia       String?     @db.VarChar(150)
+  telefone            String?     @db.VarChar(20)
+  email               String?     @db.VarChar(150)
+  status              String      @default("ativo") @db.VarChar(20)
+  createdAt           DateTime    @default(now())
+
+  cliente    Cliente     @relation(fields: [id_cliente], references: [id])
+  obrigacoes Obrigacao[]
+
+  @@map("filial")
+}
+
+model Obrigacao {
+  id         Int      @id @default(autoincrement())
+  descricao  String   @db.VarChar(150)
+  prazo      DateTime
+  status     String   @default("pendente") @db.VarChar(20)
+  id_cliente Int
+  id_filial  Int?
+  createdAt  DateTime @default(now())
+
+  cliente    Cliente  @relation(fields: [id_cliente], references: [id])
+  filial     Filial?  @relation(fields: [id_filial], references: [id])
+
+  @@map("obrigacao")
+}

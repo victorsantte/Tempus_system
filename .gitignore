@@ -1,0 +1,32 @@
+# ── Dependencies ──────────────────────────────────────────
+node_modules/
+**/node_modules/
+
+# ── Environment variables ─────────────────────────────────
+.env
+.env.local
+.env.*.local
+**/.env
+
+# ── Build outputs ─────────────────────────────────────────
+Frontend/build/
+Frontend/.cache/
+**/build/
+
+# ── Prisma ────────────────────────────────────────────────
+Backend/prisma/migrations/*.sql.tmp
+
+# ── Logs ──────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── OS / Editor ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ── Testing ───────────────────────────────────────────────
+coverage/

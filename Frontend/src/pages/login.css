@@ -1,0 +1,86 @@
+/* ── Login page ─────────────────────────────────────────────────────────────── */
+
+/* Left panel bento grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto auto auto;
+  gap: 10px;
+  width: 100%;
+  max-width: 340px;
+}
+
+/* Explicit tile placement */
+.tile-PIS    { grid-area: 1 / 1 / 2 / 2; }
+.tile-COFINS { grid-area: 1 / 2 / 2 / 4; }
+.tile-DCTF   { grid-area: 2 / 1 / 4 / 3; min-height: 110px; }
+.tile-ICMS   { grid-area: 2 / 3 / 4 / 4; min-height: 110px; }
+.tile-INSS   { grid-area: 4 / 1 / 5 / 2; }
+.tile-FGTS   { grid-area: 4 / 2 / 5 / 3; }
+.tile-ISS    { grid-area: 5 / 1 / 6 / 2; }
+.tile-SPED   { grid-area: 5 / 2 / 6 / 3; }
+.tile-IRPJ   { grid-area: 4 / 3 / 6 / 4; min-height: 110px; }
+
+/* Individual tile style */
+.bento-tile {
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid #D4CEC8;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 62px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #8A8480;
+  transition: background 0.15s;
+}
+
+/* Login input — thin border, no ring, subtle focus darkening */
+.login-input {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: #FAF8F5;
+  border: 1px solid #DDD9D4;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s;
+  letter-spacing: 0.01em;
+}
+.login-input::placeholder {
+  color: #BDB8B3;
+  font-size: 13px;
+}
+.login-input:focus {
+  border-color: #888480;
+  background: #FFFFFF;
+}
+.login-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Primary login button */
+.login-btn {
+  width: 100%;
+  padding: 13px 0;
+  background: #111110;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.login-btn:hover:not(:disabled) {
+  background: #2A2A28;
+}
+.login-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
