@@ -1,5 +1,7 @@
 # ── Stage 1: deps ────────────────────────────────────────────────────────────
-FROM node:18-alpine AS deps
+FROM node:18-slim AS deps
+
+RUN apt-get update -y && apt-get install -y openssl
 
 WORKDIR /app
 
@@ -12,12 +14,14 @@ COPY Backend/prisma ./prisma
 RUN npx prisma generate
 
 # ── Stage 2: runtime ─────────────────────────────────────────────────────────
-FROM node:18-alpine AS runner
+FROM node:18-slim AS runner
+
+RUN apt-get update -y && apt-get install -y openssl
 
 WORKDIR /app
 
 # Non-root user for security
-RUN addgroup -S tempus && adduser -S tempus -G tempus
+RUN addgroup --system tempus && adduser --system --ingroup tempus tempus
 
 # Copy installed modules + generated Prisma client from deps stage
 COPY --from=deps /app/node_modules ./node_modules
