@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+const BASE_URL = process.env.REACT_APP_API_URL || 'https://tempus-lh8u.onrender.com';
 
 // ── Token helpers ────────────────────────────────────────────────────────────
 export function getToken() {
@@ -16,7 +16,7 @@ async function request(path, options = {}) {
     res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
   } catch {
     // Network-level failure: backend offline, CORS preflight blocked, or DNS error
-    const err = new Error('Não foi possível conectar ao servidor. Verifique se o Backend está rodando em http://localhost:3000.');
+    const err = new Error('Não foi possível conectar ao servidor. Verifique sua conexão ou tente novamente mais tarde.');
     err.status = 0;
     err.code   = 'NETWORK_ERROR';
     throw err;
