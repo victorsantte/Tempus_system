@@ -7,12 +7,15 @@ const app = express();
 
 app.use(express.json());
 
-// Accept any localhost origin so the frontend works on any dev port (3001, 3002, etc.)
 app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin || /^http:\/\/localhost(:\d+)?$/.test(origin)) return cb(null, true);
-    cb(new Error(`CORS: origin blocked — ${origin}`));
-  },
+  origin: [
+    'https://tempus-system.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:5173',
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
 
